@@ -29,7 +29,7 @@ def evaluation(dataset):
     """
     ts_data = []
     dict_training_data = dataset.get_training_data()
-    data_of_interest = dict_training_data['59d638667bfe0b5f22bd6420: Motek - Erebus Unmount'][] # Change the random time-series as desired
+    data_of_interest = dict_training_data['59d638667bfe0b5f22bd6449: Pitasc - Insert Upright'][0] # Change the random time-series as desired
     for state_data in data_of_interest:
         ts_data.append(state_data.values())
     data_nd = np.array(ts_data)
@@ -42,13 +42,13 @@ def evaluation(dataset):
     result = get_classifier_data()
     for label, (classifier, _) in result.items():
         dict_classifiers[label] = classifier
-    cls = dict_classifiers['59d638667bfe0b5f22bd6420: Motek - Erebus Unmount'] # Change the classifier as desired
+    cls = dict_classifiers['59d638667bfe0b5f22bd6449: Pitasc - Insert Upright'] # Change the classifier as desired
     mins, ds = cls.predict_all(data_nd)
     # plt.plot(ds)
     # plt.ylabel('BMD')
     # plt.show()
 
-    classifier_threshold = 0.5324615200196556 # Change the classifier_threshold as desired
+    classifier_threshold = cls.delta # the classifier threshold which is a characteristic value for each different state
     flag = False
     for distance in ds:
         if distance < classifier_threshold:
